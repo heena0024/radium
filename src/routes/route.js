@@ -9,13 +9,17 @@ const bookController = require("../controllers/bookController")
 router.get('/test-me', function (req, res) {
     res.send('My first ever api!')
 });
+//18 assignment
 
+router.post('/my')
+
+
+
+
+//16 assignment
 router.post('/createBook', bookController.getBookData);
-
 router.post('/createAuthor', authorController.getAuthorData);
-
 router.get('/getChetanBook', authorController.getChetanData);
-
 router.get('/twoState', bookController.twoState);
 
 router.get('/priceBook', bookController.priceBook);
