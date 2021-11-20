@@ -1,30 +1,21 @@
+const { application } = require('express');
 const express = require('express');
 const router = express.Router();
-const bookModel = require("../models/bookModel")
-const authorModel = require("../models/authorModels")
+var middleware = require('../middlewares/basicmiddleware.js');
 
-const authorController= require("../controllers/authorController.js")
+const basicController= require("../controllers/basiccontroller")
 
-const bookController = require("../controllers/bookController")
+
 router.get('/test-me', function (req, res) {
     res.send('My first ever api!')
 });
-//18 assignment
-
-router.post('/my')
 
 
 
 
-//16 assignment
-router.post('/createBook', bookController.getBookData);
-router.post('/createAuthor', authorController.getAuthorData);
-router.get('/getChetanBook', authorController.getChetanData);
-router.get('/twoState', bookController.twoState);
-
-router.get('/priceBook', bookController.priceBook);
+router.post('/createAccount',middleware.TC ,middleware.login, basicController.createAccount);
 
 
-//router.get('/updateAuthor',Controllers.updateAuthor)
+router.post('/createbook',basicController.getBooksData);
 
 module.exports = router;
