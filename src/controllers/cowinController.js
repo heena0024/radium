@@ -98,10 +98,50 @@ const getOtp = async function (req, res){
         res.status(500).send( { msg: "Something went wrong" } )
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 const nameError= async function(req, re){
-  let value= req.query.value;
-  console.log("vlue:",value)
+   try {
+    let options = {
+      method: "get",
+      url: "https://cdn-api.co-vin.in/api/v2/admin/location/states",
+    };
+    const cowinStates = await axios(options);
+
+    console.log("WORKING");
+    let states = cowinStates.data;
+    res.status(200).send({ msg: "Successfully fetched data", data: states });
+
+  } 
+  catch (err) {
+    console.log(err.message);
+    res.status(500).send({ msg: "Some error occured" });
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // assignment 
 const getWether = async function (req, res){
 console.log("hy testing error")
@@ -135,13 +175,12 @@ const tempLondon = async function (req, res){
          let options = {
           method : "get", // method has to be get
           url : ` http://api.openweathermap.org/data/2.5/weather?q=London&appid=539437aafc6e82b10640262cc23793d8`,
-          data: { "mobile": req.body.mobile  } // we are sending the json body in the data 
         }
         console.log('*****')
         let london= await axios(options)
         console.log(london.data.main.temp)
         //let id= response.data
-        res.status(200).send( {msg: "Success", data: london.data.main.temp} )
+        res.status(200).send( {msg: "Success", london_temp: london.data.main.temp} )
 
     }
     catch(err) {
@@ -164,12 +203,12 @@ const sortedTemp = async function (req, res){
         }
 
         let london= await axios(options)
-        //obj.temp=london.data.main.temp
-        //cityArr.push(obj)
-        Arr.push({"city":city[i],"temp": london.data.main.temp})
+       obj.temp=london.data.main.temp
+      cityArr.push(obj)
+        //cityArr.push({"city":city[i],"temp": london.data.main.temp})
       }
       //console.log("sorted:",sorted)
-      let sorted=arr.sort(function(a,b){return paraseFloat(a.temp)- paraseFloat(b.temp);})
+      let sorted=cityArr.sort(function(a,b){return a.temp - b.temp})
       res.status(200).send({msg:"successfull","temp_city":sorted});
     }
     catch(e){
