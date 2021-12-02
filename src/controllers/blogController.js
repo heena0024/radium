@@ -34,7 +34,7 @@ const getBlogs = async function (req, res) {
 
         const blogs = await blogModel.find({ isDeleted: false, isPublished: true })
         // console.log(blogs)
-        let authorId = req.query.authorid
+        let authorId = req.query.authorId
         let category = req.query.category
         let tags = req.query.tags
         let subcategory = req.query.subcategory
@@ -106,7 +106,7 @@ const checkdeletestatus = async function (req, res) {
                 res.status(400).send({ status: false, msg: "invalid blogId" })
             }
         } else {
-            res.status(40).send({ status: false, msg: "invalid Id" })
+            res.status(401).send({ status: false, msg: "invalid Id" })
         }
     }
     catch (err) {
